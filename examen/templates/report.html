@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+
+{% block content %}
+<div>
+    {% if request.GET.sentto %}
+    <div class="alert alert-success text-center" role="alert">
+        {%bs_icon 'check-circle-fill' size='1.5em'%} sent to: {{request.GET.sentto}}
+      </div>
+    {% endif %}
+    {% if request.GET.failed%}
+    <div class="alert alert-danger text-center" role="alert">
+        {%bs_icon 'check-circle-fill' size='1.5em'%} Error sending mail
+      </div>
+    {% endif %}
+    <div class="card card-size border-dark mb-3">
+        <h3 class="card-header text-dark text-center">Exam report: {{exam}}<br>
+            Date: {{date}}</h3>
+        <div class="card-body">
+            {% for k, v in data.items%}
+            <div class="card card-1 border-dark mb-3">
+                <div class="card-header text-center">
+                    <h5 class="text-dark">Professor: {{k.name}}</h5>
+                    <a href="{% url 'examen:sender' exam_id %}?professor={{k.id}}" class="btn btn-primary">Send to {{k.nname}}</a>
+                </div>
+                {%for i in v %}
+                <p class="card-text text-dark text-center">{{i}}</p>
+                {%endfor%}
+            </div>
+            {%endfor%}
+        </div>
+        <a href="{% url 'examen:sender' exam_id %}" class="btn btn-primary">Send to everyone</a>
+        <br>
+        <div class="card-footer text-muted">
+            key: {{key}}
+        </div>
+        
+    </div>
+    
+
+</div>
+<p> <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample">
+        Script Data
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body border-dark text-dark">
+        {{script_data}}
+    </div>
+</div>
+<br>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="card card-size text-center text-white bg-secondary mb-2">
+  <div class="card-header">New submit for {{exam.title}}</div>
+  <div class="card-body">
+    {% csrf_token %}
+    {% crispy formset helper%}
+  </div>
+</div>
+
+{% endblock %}

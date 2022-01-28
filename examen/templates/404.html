@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="card text-white bg-danger mb-3">
+  <div class="card-header">
+    <h1>ERROR</h1>
+  </div>
+  <div class="card-body">
+    <h2 class="card-title">THE PAGE DOES NOT EXIST OR YOU HAVE NOT LOGGED IN </h2>
+    <div class="text-center">
+      <a href="{% url 'examen:home'%}" class="btn btn-primary">Back to Home</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

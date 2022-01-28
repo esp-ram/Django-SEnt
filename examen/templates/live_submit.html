@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1 class="text-dark">
+    Submits
+</h1>
+{% for exam, students in data.items %}
+<div class="card text-white text-center bg-secondary mb-3">
+    <div class="card-header">{{exam}}</div>
+    <div class="card-body">
+        {% if students %}
+        {% for student in students %}
+        <p class="card-text">STUDENTID - {{student.student_id}}</p>
+        {% endfor %}
+        {% else %}
+        <p class="card-text">No submits at this time</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load bootstrap_icons %}
+
+
+{%block navbar%}
+
+<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#ModalExamenes">
+  {%bs_icon 'calendar-week-fill' size='1.1em'%} Upcoming
+</button>
+
+{%endblock%}
+
+
+{%block modal%}
+
+<div class="modal fade" id="ModalExamenes" tabindex="-1" aria-labelledby="ModalExamenesLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content ">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark" id="ModalExamenesLabel">{%bs_icon 'exclamation-diamond-fill' color='red' size='1.5em'%}Upcoming exams</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-dark">
+        {% if upcoming %}
+        {%for exam in upcoming%}
+        <div>
+          <p>{%bs_icon 'arrow-right-square-fill' size='1.5em'%}{{exam.title}} - {{exam.start}}</p>
+        </div>
+        {%endfor%}
+        {%else%}
+        No upcoming exams
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock%}
+
+
+
+{% block content %}
+
+{% if active %}
+
+
+
+
+{% for exam in active %}
+<div class="card card-size text-center bg-dark mb-2">
+  <div class="card-header">
+    <h2>{{exam.title}}</h2>
+  </div>
+  <div class="card-body">
+    <h5 class="card-text">Start: {{exam.start}}</h5>
+    <h5 class="card-text">End: {{exam.end}}</h5>
+  </div>
+
+  <a href="{% url 'examen:submit' exam.id %}" class="btn btn-primary">Submit Exam</a>
+</div>
+<br>
+{% endfor %}
+
+
+{% else %}
+
+<div class="card card-size text-white bg-dark mb-3">
+  <div class="card-body">
+    <h1 class="card-title">No exams right now :)</h1>
+      </div>
+</div>
+
+{% endif %}
+
+
+{% endblock %}
